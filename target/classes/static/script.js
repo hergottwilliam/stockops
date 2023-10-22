@@ -1,5 +1,5 @@
 // TODO
-// make edit form clear when submitted, like the new product form does
+// both new product and edit product forms do not clea when submitted
 // make forms permit decimals for price
 // add comments everywhere
 // make inventory box scrollable
@@ -187,7 +187,7 @@ function updateProductToDatabase(event) {
 		updateInventoryPage();
 	})
 	.catch(error => {
-		console.error("Error ipdating product:", error);
+		console.error("Error updating product:", error);
 	});
 	
 	$('#editProductModal').modal('hide'); // closes edit product form	

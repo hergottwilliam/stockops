@@ -103,7 +103,7 @@ function addNewProductToDatabase(event) {
 	.then(response => response.json())
 	.then(data => {
 		console.log("New product added:", data);
-		
+		clearNewProductForm();
 		updateInventoryPage();
 	})
 	.catch(error => {
@@ -184,6 +184,7 @@ function updateProductToDatabase(event) {
 	.then(response => response.json())
 	.then(data => {
 		console.log("Product updated:", data);
+		clearEditProductForm();
 		updateInventoryPage();
 	})
 	.catch(error => {
@@ -216,6 +217,21 @@ function deleteProduct(productToDelete) {
 	});
 }
 
+function clearEditProductForm() {
+    document.querySelector('#editName').value = "";
+    document.querySelector('#editPrice').value = "";
+    document.querySelector('#editStock').value = "";
+    document.querySelector('#editDescription').value = "";
+    document.querySelector('#editReorderLevel').value = "";
+}
+
+function clearNewProductForm() {
+    document.querySelector('#name').value = "";
+    document.querySelector('#price').value = "";
+    document.querySelector('#stock').value = "";
+    document.querySelector('#description').value = "";
+    document.querySelector('#reorder-level').value = "";
+}
 
 console.log("js script run");
 updateInventoryPage();
