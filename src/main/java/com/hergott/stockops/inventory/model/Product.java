@@ -2,11 +2,20 @@ package com.hergott.stockops.inventory.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 public class Product {
 	private int id; // primary key
 	private String productName; // not null
+	
+	@JsonProperty("stock")
 	private int stock; // not null
-	private Double price; // optional
+	
+	@JsonProperty("price")
+	private double price; // optional
+	
 	private String description; // optional
 	private int reorderLevel; // optional, default 0
 	private Date lastUpdated; // not null, auto generated
@@ -15,7 +24,7 @@ public class Product {
 		
 	}
 	
-	public Product(String productName, int stock, Double price,
+	public Product(String productName, int stock, double price,
 			String description, int reorderLevel, Date lastUpdated) {
 		this.productName = productName;
 		this.stock = stock;
@@ -49,11 +58,11 @@ public class Product {
 		this.stock = stock;
 	}
 
-	public Double getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

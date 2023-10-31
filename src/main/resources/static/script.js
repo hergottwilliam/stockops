@@ -1,5 +1,4 @@
 // TODO
-// both new product and edit product forms do not clea when submitted
 // make forms permit decimals for price
 // add comments everywhere
 // make inventory box scrollable
@@ -7,6 +6,7 @@
 // + and - buttons for easy inventory changes
 // date is broken
 // user authentication
+// reorder level alert
 
 const productContainer = document.getElementById("product-container");
 const newProductButton = document.getElementById("new-product-button");
@@ -86,8 +86,8 @@ function addNewProductToDatabase(event) {
 	
 	let createdNewProduct = new NewProduct(
 		document.querySelector('#name').value,
-		document.querySelector('#price').value,
 		document.querySelector('#stock').value,
+		document.querySelector('#price').value,
 		document.querySelector('#description').value,
 		document.querySelector('#reorder-level').value,
 		formattedDate // formatted YYYY-MM-DD
@@ -167,8 +167,8 @@ function updateProductToDatabase(event) {
 	updatedProduct = new Product(
 		originalProduct.id,
 		document.querySelector('#editName').value,
-		document.querySelector('#editPrice').value,
 		document.querySelector('#editStock').value,
+		document.querySelector('#editPrice').value,
 		document.querySelector('#editDescription').value,
 		document.querySelector('#editReorderLevel').value,
 		formattedDate // formatted YYYY-MM-DD

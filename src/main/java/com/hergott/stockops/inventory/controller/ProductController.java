@@ -30,9 +30,13 @@ public class ProductController {
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		Product createdProduct = productService.createProduct(product);
 		return ResponseEntity.ok(createdProduct);
+		
+		// System.out.println("Received JSON data: " + product);
+		// return ResponseEntity.ok("Data received successfully");
+		
 	}
 	
-	@GetMapping("/{productId}")
+	@GetMapping
 	public ResponseEntity<Product> getProductById(@PathVariable int id) {
 		Product product = productService.getProductById(id);
 		
@@ -62,3 +66,4 @@ public class ProductController {
 	}
 
 }
+
