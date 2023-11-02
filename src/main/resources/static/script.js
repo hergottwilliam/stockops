@@ -1,12 +1,11 @@
 // TODO
-// make forms permit decimals for price
 // add comments everywhere
-// make inventory box scrollable
 // make pretty
 // + and - buttons for easy inventory changes
 // date is broken
 // user authentication
 // reorder level alert
+// description (i) button that displays description
 
 const productContainer = document.getElementById("product-container");
 const newProductButton = document.getElementById("new-product-button");
