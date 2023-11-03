@@ -4,6 +4,7 @@
 // + and - buttons for easy inventory changes, beside stock
 // date is broken
 // make all prices display 0.00
+// could store product json info in row, not edit button column
 // user authentication
 // make edit form be filled with original values
 // reorder level alert, red or flagged
