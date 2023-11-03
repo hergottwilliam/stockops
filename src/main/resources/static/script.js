@@ -10,7 +10,7 @@
 // reorder level alert, red or flagged
 // description (i) button that displays summary of product pop up, button near name
 // garbage symbol for delete, maybe an are you sure message
-// get rid of x axis scroll with full view port
+// get rid of x axis scroll with full screen
 
 const productContainer = document.getElementById("product-container");
 const newProductButton = document.getElementById("new-product-button");
