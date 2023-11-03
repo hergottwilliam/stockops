@@ -1,11 +1,15 @@
 // TODO
 // add comments everywhere
 // make pretty
-// + and - buttons for easy inventory changes
+// + and - buttons for easy inventory changes, beside stock
 // date is broken
+// make all prices display 0.00
 // user authentication
-// reorder level alert
-// description (i) button that displays description
+// make edit form be filled with original values
+// reorder level alert, red or flagged
+// description (i) button that displays summary of product pop up, button near name
+// garbage symbol for delete, maybe an are you sure message
+// get rid of x axis scroll with full view port
 
 const productContainer = document.getElementById("product-container");
 const newProductButton = document.getElementById("new-product-button");
@@ -47,7 +51,9 @@ function updateInventoryPage() {
 				// Columns displayed as: name, stock, price, lastupdated date, edit and delete buttons
 				const productName = createProductColumn(product.productName);
 				const productStock = createProductColumn(product.stock);
-				const productPrice = createProductColumn(product.price);
+				
+				// Format displayed priced to 2 decimal points
+				const productPrice = createProductColumn(product.price.toFixed(2));
 				const productLastUpdated = createProductColumn(product.lastUpdated);
 				
 				const editProductButton = createEditButtonColumn(product); // passing the current product, prior to user edit

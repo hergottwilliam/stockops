@@ -1,12 +1,15 @@
 // TODO
-// make forms permit decimals for price
 // add comments everywhere
-// make inventory box scrollable
 // make pretty
-// + and - buttons for easy inventory changes
+// + and - buttons for easy inventory changes, beside stock
 // date is broken
+// make all prices display 0.00
 // user authentication
-// reorder level alert
+// make edit form be filled with original values
+// reorder level alert, red or flagged
+// description (i) button that displays summary of product pop up, button near name
+// garbage symbol for delete, maybe an are you sure message
+// get rid of x axis scroll with full view port
 
 const productContainer = document.getElementById("product-container");
 const newProductButton = document.getElementById("new-product-button");
