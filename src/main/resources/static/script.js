@@ -59,7 +59,7 @@ function updateInventoryPage() { // populate page with all products in database
 				const productLastUpdated = createProductColumn(product.lastUpdated);
 				
 				const editProductButton = createEditButtonColumn(product); // passing the current product, prior to user edit
-				const deleteProductButton = createDeleteButtonColumn('Delete', 'btn-danger', () => deleteProduct(product));
+				const deleteProductButton = createDeleteButtonColumn('btn-danger', () => deleteProduct(product));
 				
 				productRow.appendChild(productName);
 				productRow.appendChild(productStock);
@@ -251,13 +251,19 @@ function decreaseStockByOne(product) {
 }
 
 // Helper function to create a Bootstrap column with a button
-function createDeleteButtonColumn(label, className, clickHandler) {
+function createDeleteButtonColumn(className, clickHandler) {
     const column = document.createElement('div');
     column.classList.add('col');
     
     const button = document.createElement('button');
     button.classList.add('btn', className);
-    button.textContent = label;
+    
+    const trashIcon = document.createElement('i');
+    trashIcon.classList.add('fas', 'fa-trash-alt'); // Using the Font Awesome trash can icon
+    
+    button.appendChild(trashIcon);
+    
+    
     button.addEventListener('click', clickHandler);
     
     column.appendChild(button);
