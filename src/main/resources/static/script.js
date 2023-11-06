@@ -1,12 +1,9 @@
 // TODO
 // add comments everywhere
 // make pretty
-// + and - buttons for easy inventory changes, beside stock
-// could store product json info in row, not edit button column
 // user authentication
-// make edit form be filled with original values
+// could ONLY store original product ID in edit form instead of entire object
 // reorder level alert, red or flagged
-// garbage symbol for delete, maybe an are you sure message
 // get rid of x axis scroll with full screen
 // page refresh looks bad
 
@@ -280,8 +277,14 @@ function createEditButtonColumn(originalProduct) {
     button.addEventListener('click', () => {
 		$('#editProductModal').modal('show'); // opens edit product form
 		
-		editProductForm.setAttribute('data-original-product', JSON.stringify(originalProduct));
+		editProductForm.setAttribute('data-original-product', JSON.stringify(originalProduct)); // store original data in the form temporarily
 		
+		// populate edit form with current values
+		document.querySelector('#editName').value = originalProduct.productName;
+		document.querySelector('#editPrice').value = originalProduct.price;
+		document.querySelector('#editStock').value = originalProduct.stock;
+		document.querySelector('#editDescription').value = originalProduct.description;
+		document.querySelector('#editReorderLevel').value = originalProduct.reorderLevel;
 		
 	}); 
     

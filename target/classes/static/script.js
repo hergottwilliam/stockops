@@ -1,12 +1,9 @@
 // TODO
 // add comments everywhere
 // make pretty
-// + and - buttons for easy inventory changes, beside stock
-// could store product json info in row, not edit button column
 // user authentication
 // make edit form be filled with original values
 // reorder level alert, red or flagged
-// garbage symbol for delete, maybe an are you sure message
 // get rid of x axis scroll with full screen
 // page refresh looks bad
 
@@ -52,14 +49,14 @@ function updateInventoryPage() { // populate page with all products in database
 				
 				// Columns displayed as: name, stock, price, lastupdated date, edit and delete buttons
 				const productName = createProductNameColumn(product.productName, product.description);
-				const productStock = createProductColumn(product.stock);
+				const productStock = createProductStockColumn(product);
 				
 				// Format displayed priced to 2 decimal points
 				const productPrice = createProductColumn(product.price.toFixed(2));
 				const productLastUpdated = createProductColumn(product.lastUpdated);
 				
 				const editProductButton = createEditButtonColumn(product); // passing the current product, prior to user edit
-				const deleteProductButton = createDeleteButtonColumn('Delete', 'btn-danger', () => deleteProduct(product));
+				const deleteProductButton = createDeleteButtonColumn('btn-danger', () => deleteProduct(product));
 				
 				productRow.appendChild(productName);
 				productRow.appendChild(productStock);
@@ -152,14 +149,118 @@ function createProductNameColumn(productName, productDescription) { // creates n
     return column;
 }
 
+function createProductStockColumn(product) { // creates column with stock and + , - buttons
+    const column = document.createElement('div');
+    column.classList.add('col');
+    column.textContent = product.stock;
+    
+    // + button increase stock by 1
+    const increaseButton = document.createElement('button');
+    increaseButton.textContent = "+";
+    increaseButton.classList.add("btn", "btn-secondary");
+    
+    increaseButton.addEventListener('click', () => {
+		increaseStockByOne(product);
+	});
+	
+	column.appendChild(increaseButton);
+    
+    // - button descrease stock by 1
+    const decreaseButton = document.createElement('button');
+    decreaseButton.textContent = "-";
+    decreaseButton.classList.add("btn", "btn-secondary");
+    
+    decreaseButton.addEventListener('click', () => {
+		decreaseStockByOne(product);
+	});
+	
+	column.appendChild(decreaseButton);
+    
+    return column;
+}
+
+
+function increaseStockByOne(product) {
+	const apiUrl = 'http://localhost:8080/api/products';
+	const currentDate = new Date();
+	const formattedDate = currentDate.toISOString().split("T")[0];
+	
+	updatedProduct = new Product(
+		product.id,
+		product.productName,
+		product.stock + 1,
+		product.price,
+		product.description,
+		product.reorderLevel,
+		formattedDate // formatted YYYY-MM-DD
+	);
+	
+	fetch(apiUrl, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(updatedProduct)
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log("Product updated:", data);
+		
+		updateInventoryPage();
+	})
+	.catch(error => {
+		console.error("Error updating product:", error);
+	});
+	
+}
+
+function decreaseStockByOne(product) {
+	const apiUrl = 'http://localhost:8080/api/products';
+	const currentDate = new Date();
+	const formattedDate = currentDate.toISOString().split("T")[0];
+	
+	updatedProduct = new Product(
+		product.id,
+		product.productName,
+		product.stock - 1,
+		product.price,
+		product.description,
+		product.reorderLevel,
+		formattedDate // formatted YYYY-MM-DD
+	);
+	
+	fetch(apiUrl, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(updatedProduct)
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log("Product updated:", data);
+		
+		updateInventoryPage();
+	})
+	.catch(error => {
+		console.error("Error updating product:", error);
+	});
+}
+
 // Helper function to create a Bootstrap column with a button
-function createDeleteButtonColumn(label, className, clickHandler) {
+function createDeleteButtonColumn(className, clickHandler) {
     const column = document.createElement('div');
     column.classList.add('col');
     
     const button = document.createElement('button');
     button.classList.add('btn', className);
-    button.textContent = label;
+    
+    const trashIcon = document.createElement('i');
+    trashIcon.classList.add('fas', 'fa-trash-alt'); // Using the Font Awesome trash can icon
+    
+    button.appendChild(trashIcon);
+    
+    
     button.addEventListener('click', clickHandler);
     
     column.appendChild(button);
@@ -177,7 +278,11 @@ function createEditButtonColumn(originalProduct) {
 		$('#editProductModal').modal('show'); // opens edit product form
 		
 		editProductForm.setAttribute('data-original-product', JSON.stringify(originalProduct));
-		
+		document.querySelector('#editName').value = originalProduct.productName;
+		document.querySelector('#editPrice').value = originalProduct.price;
+		document.querySelector('#editStock').value = originalProduct.stock;
+		document.querySelector('#editDescription').value = originalProduct.description;
+		document.querySelector('#editReorderLevel').value = originalProduct.reorderLevel;
 		
 	}); 
     
