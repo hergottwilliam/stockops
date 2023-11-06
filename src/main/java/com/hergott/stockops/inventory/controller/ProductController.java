@@ -29,9 +29,10 @@ public class ProductController {
 	@PostMapping
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		Product createdProduct = productService.createProduct(product);
+		System.out.println("Received JSON date data: " + product.getLastUpdated()); // DEBUGGING
 		return ResponseEntity.ok(createdProduct);
 		
-		// System.out.println("Received JSON data: " + product);
+		
 		// return ResponseEntity.ok("Data received successfully");
 		
 	}
