@@ -6,7 +6,6 @@
 // user authentication
 // make edit form be filled with original values
 // reorder level alert, red or flagged
-// description (i) button that displays summary of product pop up, button near name
 // garbage symbol for delete, maybe an are you sure message
 // get rid of x axis scroll with full screen
 // page refresh looks bad
@@ -53,7 +52,7 @@ function updateInventoryPage() { // populate page with all products in database
 				
 				// Columns displayed as: name, stock, price, lastupdated date, edit and delete buttons
 				const productName = createProductNameColumn(product.productName, product.description);
-				const productStock = createProductColumn(product.stock);
+				const productStock = createProductStockColumn(product);
 				
 				// Format displayed priced to 2 decimal points
 				const productPrice = createProductColumn(product.price.toFixed(2));
@@ -151,6 +150,104 @@ function createProductNameColumn(productName, productDescription) { // creates n
     column.appendChild(button);
     
     return column;
+}
+
+function createProductStockColumn(product) { // creates column with stock and + , - buttons
+    const column = document.createElement('div');
+    column.classList.add('col');
+    column.textContent = product.stock;
+    
+    // + button increase stock by 1
+    const increaseButton = document.createElement('button');
+    increaseButton.textContent = "+";
+    increaseButton.classList.add("btn", "btn-secondary");
+    
+    increaseButton.addEventListener('click', () => {
+		increaseStockByOne(product);
+	});
+	
+	column.appendChild(increaseButton);
+    
+    // - button descrease stock by 1
+    const decreaseButton = document.createElement('button');
+    decreaseButton.textContent = "-";
+    decreaseButton.classList.add("btn", "btn-secondary");
+    
+    decreaseButton.addEventListener('click', () => {
+		decreaseStockByOne(product);
+	});
+	
+	column.appendChild(decreaseButton);
+    
+    return column;
+}
+
+
+function increaseStockByOne(product) {
+	const apiUrl = 'http://localhost:8080/api/products';
+	const currentDate = new Date();
+	const formattedDate = currentDate.toISOString().split("T")[0];
+	
+	updatedProduct = new Product(
+		product.id,
+		product.productName,
+		product.stock + 1,
+		product.price,
+		product.description,
+		product.reorderLevel,
+		formattedDate // formatted YYYY-MM-DD
+	);
+	
+	fetch(apiUrl, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(updatedProduct)
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log("Product updated:", data);
+		
+		updateInventoryPage();
+	})
+	.catch(error => {
+		console.error("Error updating product:", error);
+	});
+	
+}
+
+function decreaseStockByOne(product) {
+	const apiUrl = 'http://localhost:8080/api/products';
+	const currentDate = new Date();
+	const formattedDate = currentDate.toISOString().split("T")[0];
+	
+	updatedProduct = new Product(
+		product.id,
+		product.productName,
+		product.stock - 1,
+		product.price,
+		product.description,
+		product.reorderLevel,
+		formattedDate // formatted YYYY-MM-DD
+	);
+	
+	fetch(apiUrl, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(updatedProduct)
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log("Product updated:", data);
+		
+		updateInventoryPage();
+	})
+	.catch(error => {
+		console.error("Error updating product:", error);
+	});
 }
 
 // Helper function to create a Bootstrap column with a button

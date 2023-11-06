@@ -6,7 +6,6 @@
 // user authentication
 // make edit form be filled with original values
 // reorder level alert, red or flagged
-// description (i) button that displays summary of product pop up, button near name
 // garbage symbol for delete, maybe an are you sure message
 // get rid of x axis scroll with full screen
 // page refresh looks bad
@@ -52,7 +51,7 @@ function updateInventoryPage() { // populate page with all products in database
 				// console.log(`Date data from backend: ${product.lastUpdated}`);
 				
 				// Columns displayed as: name, stock, price, lastupdated date, edit and delete buttons
-				const productName = createProductColumn(product.productName);
+				const productName = createProductNameColumn(product.productName, product.description);
 				const productStock = createProductColumn(product.stock);
 				
 				// Format displayed priced to 2 decimal points
@@ -132,13 +131,21 @@ function createProductColumn(text) { // creates column with text content (used f
 }
 
 
-function createProductNameColumn(text) { // creates name column with info button
+function createProductNameColumn(productName, productDescription) { // creates name column with info button
     const column = document.createElement('div');
     column.classList.add('col');
-    column.textContent = text;
+    column.textContent = productName;
     
     const button = document.createElement('button');
     button.textContent = "i";
+    button.classList.add("btn", "btn-secondary");
+    
+    
+    button.addEventListener('click', () => {
+		$('#productDescriptionModal').modal('show'); // opens product description modal
+		displayProductDescription(productDescription); // sets text content of modal to product description
+		
+	}); 
     
     column.appendChild(button);
     
@@ -214,6 +221,11 @@ function updateProductToDatabase(event) {
 	});
 	
 	$('#editProductModal').modal('hide'); // closes edit product form	
+}
+
+function displayProductDescription(productDescription) {
+	const productDescriptionText = document.getElementById("productDescriptionText");
+	productDescriptionText.textContent = productDescription;
 }
 
 function deleteProduct(productToDelete) {
