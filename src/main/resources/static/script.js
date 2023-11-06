@@ -1,6 +1,7 @@
 // TODO
 // add comments everywhere
 // make pretty
+// put column headers outside of scroll box
 // user authentication
 // could ONLY store original product ID in edit form instead of entire object
 // reorder level alert, red or flagged
