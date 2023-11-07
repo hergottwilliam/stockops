@@ -48,6 +48,10 @@ function updateInventoryPage() { // populate page with all products in database
 				// DEBUGGING date formatting
 				// console.log(`Date data from backend: ${product.lastUpdated}`);
 				
+				if (product.stock <= product.reorderLevel) { // If product stock is below or equal to the reorder level, give notice
+					productRow.style.backgroundColor = "red";
+				}
+				
 				// Columns displayed as: name, stock, price, lastupdated date, edit and delete buttons
 				const productName = createProductNameColumn(product.productName, product.description);
 				const productStock = createProductStockColumn(product);

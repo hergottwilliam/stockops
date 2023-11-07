@@ -1,8 +1,9 @@
 // TODO
 // add comments everywhere
 // make pretty
+// put column headers outside of scroll box
 // user authentication
-// make edit form be filled with original values
+// could ONLY store original product ID in edit form instead of entire object
 // reorder level alert, red or flagged
 // get rid of x axis scroll with full screen
 // page refresh looks bad
@@ -46,6 +47,10 @@ function updateInventoryPage() { // populate page with all products in database
 				
 				// DEBUGGING date formatting
 				// console.log(`Date data from backend: ${product.lastUpdated}`);
+				
+				if (product.stock < product.reorderLevel) {
+					productRow.style.backgroundColor = "red";
+				}
 				
 				// Columns displayed as: name, stock, price, lastupdated date, edit and delete buttons
 				const productName = createProductNameColumn(product.productName, product.description);
@@ -277,7 +282,9 @@ function createEditButtonColumn(originalProduct) {
     button.addEventListener('click', () => {
 		$('#editProductModal').modal('show'); // opens edit product form
 		
-		editProductForm.setAttribute('data-original-product', JSON.stringify(originalProduct));
+		editProductForm.setAttribute('data-original-product', JSON.stringify(originalProduct)); // store original data in the form temporarily
+		
+		// populate edit form with current values
 		document.querySelector('#editName').value = originalProduct.productName;
 		document.querySelector('#editPrice').value = originalProduct.price;
 		document.querySelector('#editStock').value = originalProduct.stock;
