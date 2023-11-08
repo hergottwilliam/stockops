@@ -1,18 +1,12 @@
 // TODO
-// add comments everywhere
-// make pretty
-// put column headers outside of scroll box
 // user authentication
-// could ONLY store original product ID in edit form instead of entire object
-// reorder level alert, red or flagged
-// get rid of x axis scroll with full screen
-// page refresh looks bad
 
-const productContainer = document.getElementById("product-container");
-const newProductButton = document.getElementById("new-product-button");
-const newProductForm = document.getElementById("newProductForm");
-const editProductForm = document.getElementById("editProductForm");
+const productContainer = document.getElementById("product-container"); // main container with all products
+const newProductButton = document.getElementById("new-product-button"); // "New Product" button
+const newProductForm = document.getElementById("newProductForm"); // Pop-up form for new product
+const editProductForm = document.getElementById("editProductForm"); // Pop-up form for edit product
 
+// New products do not have an id as they have yet to be put into mySQL, primary key is auto-generated
 function NewProduct(productName, stock, price, description, reorderLevel, lastUpdated) {
 	this.productName = productName;
 	this.price = price;
@@ -22,6 +16,7 @@ function NewProduct(productName, stock, price, description, reorderLevel, lastUp
 	this.lastUpdated = lastUpdated;
 }
 
+// Model for product objects pulled from backend, has an id
 function Product(id, productName, stock, price, description, reorderLevel, lastUpdated) {
 	this.id = id;
 	this.productName = productName;
@@ -61,8 +56,9 @@ function updateInventoryPage() { // populate page with all products in database
 				const productLastUpdated = createProductColumn(product.lastUpdated);
 				
 				const editProductButton = createEditButtonColumn(product); // passing the current product, prior to user edit
-				const deleteProductButton = createDeleteButtonColumn('btn-danger', () => deleteProduct(product));
+				const deleteProductButton = createDeleteButtonColumn('btn-danger', () => deleteProduct(product)); 
 				
+				// add all columns to row
 				productRow.appendChild(productName);
 				productRow.appendChild(productStock);
 				productRow.appendChild(productPrice);
@@ -70,7 +66,7 @@ function updateInventoryPage() { // populate page with all products in database
 				productRow.appendChild(editProductButton);
 				productRow.appendChild(deleteProductButton);
 				
-				productContainer.appendChild(productRow);
+				productContainer.appendChild(productRow); // add row to main container
 			});
 		})
 		.catch((error) => {
@@ -86,7 +82,7 @@ function clearPage() { // removes all products on the page to prevent duplicates
 	}
 }
 
-function addNewProductToDatabase(event) {
+function addNewProductToDatabase(event) { // add a new product to database using new product form
 	event.preventDefault();
 	console.log("addNewProductToDatabase method called.")
 	const apiUrl = 'http://localhost:8080/api/products';
@@ -185,7 +181,7 @@ function createProductStockColumn(product) { // creates column with stock and + 
 }
 
 
-function increaseStockByOne(product) {
+function increaseStockByOne(product) { // triggered by "+" button
 	const apiUrl = 'http://localhost:8080/api/products';
 	const currentDate = new Date();
 	const formattedDate = currentDate.toISOString().split("T")[0];
@@ -219,7 +215,7 @@ function increaseStockByOne(product) {
 	
 }
 
-function decreaseStockByOne(product) {
+function decreaseStockByOne(product) { // triggered by "-" button
 	const apiUrl = 'http://localhost:8080/api/products';
 	const currentDate = new Date();
 	const formattedDate = currentDate.toISOString().split("T")[0];
@@ -252,8 +248,7 @@ function decreaseStockByOne(product) {
 	});
 }
 
-// Helper function to create a Bootstrap column with a button
-function createDeleteButtonColumn(className, clickHandler) {
+function createDeleteButtonColumn(className, clickHandler) { // create delete button for each product
     const column = document.createElement('div');
     column.classList.add('col');
     
@@ -272,7 +267,7 @@ function createDeleteButtonColumn(className, clickHandler) {
     return column;
 }
 
-function createEditButtonColumn(originalProduct) {
+function createEditButtonColumn(originalProduct) { // create edit button for each product, triggers popup form
     const column = document.createElement('div');
     column.classList.add('col');
     
@@ -297,7 +292,7 @@ function createEditButtonColumn(originalProduct) {
     return column;	
 }
 
-function updateProductToDatabase(event) {
+function updateProductToDatabase(event) { // after product is editted, update database with new info
 	event.preventDefault();
 	const apiUrl = 'http://localhost:8080/api/products';
 	const currentDate = new Date();
@@ -335,12 +330,12 @@ function updateProductToDatabase(event) {
 	$('#editProductModal').modal('hide'); // closes edit product form	
 }
 
-function displayProductDescription(productDescription) {
+function displayProductDescription(productDescription) { // pop up when "i" button is clicked, displays description of product
 	const productDescriptionText = document.getElementById("productDescriptionText");
 	productDescriptionText.textContent = productDescription;
 }
 
-function deleteProduct(productToDelete) {
+function deleteProduct(productToDelete) { // delete product from database
 	const apiUrl = "http://localhost:8080/api/products";
 	
 	fetch(apiUrl, {
@@ -363,7 +358,7 @@ function deleteProduct(productToDelete) {
 	});
 }
 
-function clearEditProductForm() {
+function clearEditProductForm() { // manually reset edit product form
     document.querySelector('#editName').value = "";
     document.querySelector('#editPrice').value = "";
     document.querySelector('#editStock').value = "";
@@ -371,7 +366,7 @@ function clearEditProductForm() {
     document.querySelector('#editReorderLevel').value = "";
 }
 
-function clearNewProductForm() {
+function clearNewProductForm() { // manually reset new product form
     document.querySelector('#name').value = "";
     document.querySelector('#price').value = "";
     document.querySelector('#stock').value = "";
@@ -379,7 +374,7 @@ function clearNewProductForm() {
     document.querySelector('#reorder-level').value = "";
 }
 
-console.log("js script run");
-updateInventoryPage();
-newProductForm.addEventListener('submit', addNewProductToDatabase);
-editProductForm.addEventListener('submit', updateProductToDatabase);
+console.log("js script run"); // confirm code has run
+updateInventoryPage(); // update the page first with all products
+newProductForm.addEventListener('submit', addNewProductToDatabase); // when new product form is submitted
+editProductForm.addEventListener('submit', updateProductToDatabase); // when edit product form is submitted

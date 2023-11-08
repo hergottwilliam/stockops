@@ -4,7 +4,6 @@
 // put column headers outside of scroll box
 // user authentication
 // could ONLY store original product ID in edit form instead of entire object
-// reorder level alert, red or flagged
 // get rid of x axis scroll with full screen
 // page refresh looks bad
 
@@ -48,7 +47,7 @@ function updateInventoryPage() { // populate page with all products in database
 				// DEBUGGING date formatting
 				// console.log(`Date data from backend: ${product.lastUpdated}`);
 				
-				if (product.stock < product.reorderLevel) {
+				if (product.stock <= product.reorderLevel) { // If product stock is below or equal to the reorder level, give notice
 					productRow.style.backgroundColor = "red";
 				}
 				
