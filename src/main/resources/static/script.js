@@ -1,5 +1,3 @@
-// TODO
-// user authentication
 
 const productContainer = document.getElementById("product-container"); // main container with all products
 const newProductButton = document.getElementById("new-product-button"); // "New Product" button
