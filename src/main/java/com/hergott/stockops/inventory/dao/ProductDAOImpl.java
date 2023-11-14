@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.hergott.stockops.DatabaseConnector;
+import com.hergott.stockops.inventory.config.DatabaseConnector;
 import com.hergott.stockops.inventory.model.Product;
 
 @Repository

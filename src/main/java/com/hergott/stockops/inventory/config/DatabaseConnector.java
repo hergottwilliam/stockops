@@ -1,4 +1,4 @@
-package com.hergott.stockops;
+package com.hergott.stockops.inventory.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

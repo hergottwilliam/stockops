@@ -1,4 +1,4 @@
-package com.hergott.stockops;
+package com.hergott.stockops.inventory.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import org.springframework.stereotype.Repository;
 
-import com.hergott.stockops.DatabaseConnector;
+import com.hergott.stockops.inventory.config.DatabaseConnector;
 import com.hergott.stockops.inventory.model.User;
 
 @Repository

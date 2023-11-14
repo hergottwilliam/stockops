@@ -1,4 +1,4 @@
-package com.hergott.stockops;
+package com.hergott.stockops.inventory.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
