@@ -1,6 +1,6 @@
 package com.hergott.stockops.inventory.model;
 
-public class User {
+public class User implements UserDetails {
 	private int id;
 	private String username;
 	private String password;
