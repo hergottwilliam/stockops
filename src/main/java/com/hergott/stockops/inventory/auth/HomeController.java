@@ -15,4 +15,9 @@ public class HomeController {
 	public String secured() {
 		return "index.html";
 	}
+	
+	@GetMapping("/error")
+	public String error() {
+		return "An error has occured";
+	}
 }
