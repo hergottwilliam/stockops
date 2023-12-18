@@ -13,22 +13,30 @@
 		<script src="script.js" defer></script>
     </head>
     <body>
-        <h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
         
-        	<div class="inventory-container text-center">
-		<div class="row">
+
+        
+        <div class="inventory-container text-center">
+		<div class="row"> <!-- APP HEADER -->
 			<div class="col">
 				<h1>StockOps</h1>
 			</div>
 			<div class="col">
-				<button type="button" id="new-product-button" class="btn btn-primary"
-				data-bs-toggle="modal" data-bs-target="#addProductModal">
-				New Product
+				<form th:action="@{/logout}" method="post">
+            	<button type="submit" class="btn btn-primary">Sign Out</button>
+        		</form>
+			</div>
+			 
+
+		</div>
+		<div class="row">
+			<div class="col-md-6 offset-md-0">
+	        	<button type="button" id="new-product-button" class="btn btn-primary"
+					data-bs-toggle="modal" data-bs-target="#addProductModal">
+					New Product
 				</button>
 			</div>
+
 		</div>
 		<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -116,16 +124,16 @@
 		    </div>
 		  </div>
 		</div>
-
-		<div id="product-container" class="mx-auto">
 			<div class="row">
-				<div class="col">Name</div>
-				<div class="col">Stock</div>
-				<div class="col">Price</div>
-				<div class="col">Last Updated</div>
-				<div class="col"></div> <!-- edit button column -->
-				<div class="col"></div> <!--delete button column -->
+				<div class="col-md-4">Name</div>
+				<div class="col-md-2">Stock</div>
+				<div class="col-md-1">Price</div>
+				<div class="col-md-1">Last Updated</div>
+				<div class="col-md-1"></div> <!-- edit button column -->
+				<div class="col-md-1"></div> <!--delete button column -->
 			</div>
+		<div id="product-container" class="mx-auto">
+
 			<!-- Products in inventory here, following format of title row above -->
 		</div>
 	</div>

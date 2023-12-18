@@ -121,7 +121,7 @@ function addNewProductToDatabase(event) { // add a new product to database using
 
 function createProductColumn(text) { // creates column with text content (used for price and date)
     const column = document.createElement('div');
-    column.classList.add('col');
+    column.classList.add('col-md-1');
     column.textContent = text;
     return column;
 }
@@ -129,7 +129,7 @@ function createProductColumn(text) { // creates column with text content (used f
 
 function createProductNameColumn(productName, productDescription) { // creates name column with info button
     const column = document.createElement('div');
-    column.classList.add('col');
+    column.classList.add('col-md-4');
     column.textContent = productName;
     
     const button = document.createElement('button');
@@ -150,7 +150,7 @@ function createProductNameColumn(productName, productDescription) { // creates n
 
 function createProductStockColumn(product) { // creates column with stock and + , - buttons
     const column = document.createElement('div');
-    column.classList.add('col');
+    column.classList.add('col-md-2');
     column.textContent = product.stock;
     
     // + button increase stock by 1
@@ -248,7 +248,7 @@ function decreaseStockByOne(product) { // triggered by "-" button
 
 function createDeleteButtonColumn(className, clickHandler) { // create delete button for each product
     const column = document.createElement('div');
-    column.classList.add('col');
+    column.classList.add('col-md-1');
     
     const button = document.createElement('button');
     button.classList.add('btn', className);
@@ -267,7 +267,7 @@ function createDeleteButtonColumn(className, clickHandler) { // create delete bu
 
 function createEditButtonColumn(originalProduct) { // create edit button for each product, triggers popup form
     const column = document.createElement('div');
-    column.classList.add('col');
+    column.classList.add('col-md-1');
     
     const button = document.createElement('button');
     button.classList.add('btn', 'btn-primary');
