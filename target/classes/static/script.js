@@ -32,6 +32,8 @@ function updateInventoryPage() { // populate page with all products in database
 	fetch('http://localhost:8080/api/products/all') // calls method to fetch ALL products
 		.then(response => response.json())
 		.then((data) => {
+			
+			const fragment = document.createDocumentFragment();
 			// Iterate through all products fetched from backend
 			data.forEach((product) => {
 				const productRow = document.createElement('div');
@@ -62,8 +64,9 @@ function updateInventoryPage() { // populate page with all products in database
 				productRow.appendChild(editProductButton);
 				productRow.appendChild(deleteProductButton);
 				
-				productContainer.appendChild(productRow); // add row to main container
+				fragment.appendChild(productRow); // add row to main container
 			});
+			productContainer.appendChild(fragment);
 		})
 		.catch((error) => {
 			console.error('Error fetching all products:', error);
@@ -169,6 +172,7 @@ function createProductStockColumn(product) { // creates column with stock and + 
     increaseButton.classList.add("btn", "btn-light");
     
     increaseButton.addEventListener('click', () => {
+		event.preventDefault();
 		increaseStockByOne(product);
 	});
 	
@@ -180,6 +184,7 @@ function createProductStockColumn(product) { // creates column with stock and + 
     decreaseButton.classList.add("btn", "btn-light");
     
     decreaseButton.addEventListener('click', () => {
+		event.preventDefault();
 		decreaseStockByOne(product);
 	});
 	
