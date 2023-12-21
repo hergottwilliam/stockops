@@ -41,9 +41,7 @@ function updateInventoryPage() { // populate page with all products in database
 				// DEBUGGING date formatting
 				// console.log(`Date data from backend: ${product.lastUpdated}`);
 				
-				if (product.stock <= product.reorderLevel) { // If product stock is below or equal to the reorder level, give notice
-					productRow.style.backgroundColor = "red";
-				}
+
 				
 				// Columns displayed as: name, stock, price, lastupdated date, edit and delete buttons
 				const productName = createProductNameColumn(product.productName, product.description);
@@ -127,24 +125,32 @@ function createProductColumn(text) { // creates column with text content (used f
 }
 
 
-function createProductNameColumn(productName, productDescription) { // creates name column with info button
+function createProductNameColumn(productName, productDescription) {
+    // Create the column
     const column = document.createElement('div');
     column.classList.add('col-md-4');
-    column.textContent = productName;
-    
+
+    // Create a paragraph for the product name
+    const productNameParagraph = document.createElement('p');
+    productNameParagraph.textContent = productName;
+    productNameParagraph.classList.add('text-right'); // Add 'text-right' class for right alignment
+    column.appendChild(productNameParagraph);
+
+    // Create the info button
     const button = document.createElement('button');
     button.textContent = "i";
-    button.classList.add("btn", "btn-secondary");
-    
-    
+    button.classList.add("btn", "btn-info");
+
+    // Add click event listener to the button
     button.addEventListener('click', () => {
-		$('#productDescriptionModal').modal('show'); // opens product description modal
-		displayProductDescription(productDescription); // sets text content of modal to product description
-		
-	}); 
-    
+        $('#productDescriptionModal').modal('show'); // opens product description modal
+        displayProductDescription(productDescription); // sets text content of modal to product description
+    });
+
+    // Append the button to the column
     column.appendChild(button);
-    
+
+    // Return the column
     return column;
 }
 
@@ -153,10 +159,14 @@ function createProductStockColumn(product) { // creates column with stock and + 
     column.classList.add('col-md-2');
     column.textContent = product.stock;
     
+    if (product.stock <= product.reorderLevel) { // If product stock is below or equal to the reorder level, give notice
+		column.style.backgroundColor = "red";
+	}
+    
     // + button increase stock by 1
     const increaseButton = document.createElement('button');
     increaseButton.textContent = "+";
-    increaseButton.classList.add("btn", "btn-secondary");
+    increaseButton.classList.add("btn", "btn-light");
     
     increaseButton.addEventListener('click', () => {
 		increaseStockByOne(product);
@@ -167,7 +177,7 @@ function createProductStockColumn(product) { // creates column with stock and + 
     // - button descrease stock by 1
     const decreaseButton = document.createElement('button');
     decreaseButton.textContent = "-";
-    decreaseButton.classList.add("btn", "btn-secondary");
+    decreaseButton.classList.add("btn", "btn-light");
     
     decreaseButton.addEventListener('click', () => {
 		decreaseStockByOne(product);
@@ -270,7 +280,7 @@ function createEditButtonColumn(originalProduct) { // create edit button for eac
     column.classList.add('col-md-1');
     
     const button = document.createElement('button');
-    button.classList.add('btn', 'btn-primary');
+    button.classList.add('btn', 'btn-warning');
     button.textContent = "Edit";
     button.addEventListener('click', () => {
 		$('#editProductModal').modal('show'); // opens edit product form
