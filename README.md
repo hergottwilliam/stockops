@@ -3,6 +3,9 @@
 ## Overview
 StockOps is a robust inventory management system designed to streamline the process of managing and tracking products within your business. The application is built using Java, Spring Boot, HTML, JavaScript, CSS, Bootstrap, and MySQL, providing a comprehensive solution for handling various inventory-related tasks.
 
+## Demo Video
+https://www.youtube.com/watch?v=TqJMmfxA0HA
+
 ## Features
 
 - **Add Product:** Easily add new products to your inventory.
